@@ -2,4 +2,9 @@
     <string name="app_name">HabitTrainer</string>
     <string name="image_description">Image for habit</string>
     <string name="add_habit_title">Begin new habit…</string>
+    <string name="edit_title_hint">Eat an apple</string>
+    <string name="edit_description_hint">An apple a day keeps a doctor away</string>
+    <string name="choose_image_caption">Choose image…</string>
+    <string name="image_preview_description">Selected image</string>
+    <string name="btn_save_caption">Save habit</string>
 </resources>
