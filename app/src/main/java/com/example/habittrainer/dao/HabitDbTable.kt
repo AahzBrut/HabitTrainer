@@ -2,8 +2,10 @@ package com.example.habittrainer.dao
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
 import com.example.habittrainer.Habit
 import java.io.ByteArrayOutputStream
@@ -13,6 +15,41 @@ class HabitDbTable(context: Context) {
     private val TAG = HabitDbTable::class.java.simpleName
 
     private val dbHelper = HabitTrainerDb(context)
+
+    fun readAll(): List<Habit> {
+
+        val db = dbHelper.readableDatabase
+
+        val cursor = db.query(
+            HabitEntry.TABLE_NAME,
+            HabitEntry.getAllColumns(),
+            null,
+            null,
+            null,
+            null,
+            HabitEntry.getSortColumnQuery(HabitEntry.ID_COLUMN, "ASC")
+        )
+
+        val habits = mutableListOf<Habit>()
+        while (cursor.moveToNext()) {
+            val title = cursor.getString(HabitEntry.TITLE_COLUMN)
+            val description = cursor.getString(HabitEntry.DESCR_COLUMN)
+            val bitmap = cursor.getBitmap(HabitEntry.IMAGE_COLUMN)
+            habits.add(Habit(title, description, bitmap))
+        }
+        cursor.close()
+        db.close()
+
+        return habits
+     }
+
+    private fun Cursor.getString(column: DbColumn) : String =
+        this.getString(this.getColumnIndex(column.getName()))
+
+    private fun Cursor.getBitmap(column: DbColumn) : Bitmap {
+        val byteArray = this.getBlob(this.getColumnIndex(column.getName()))
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+    }
 
     fun store(habit: Habit): Long {
 
