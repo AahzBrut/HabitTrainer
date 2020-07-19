@@ -21,3 +21,13 @@ X
 (gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
 q
 Aapp/src/main/java/com/example/habittrainer/CreateHabitActivity.kt,c\b\cb6fe4fe9754b82b30fe3a655e21f7d8b0fb1af4
+S
+#.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+n
+>app/src/main/java/com/example/habittrainer/dao/HabitDbTable.kt,9\6\96fa08f7b93c35408db4b78dbfc6eac90a1230ae
+p
+@app/src/main/java/com/example/habittrainer/dao/HabitTrainerDb.kt,8\6\86f852de71cf4d32fcae7b51024db5de62d2588e
+k
+;app/src/main/java/com/example/habittrainer/dao/contracts.kt,a\2\a26158b8b62f39e0f815d19041b4dd7b4ca2b302

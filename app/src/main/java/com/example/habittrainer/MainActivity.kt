@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         rv.setHasFixedSize(true)
         rv.layoutManager = LinearLayoutManager(this)
-        rv.adapter = HabitsAdapter(getSampleHabits())
+//        rv.adapter = HabitsAdapter(getSampleHabits())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

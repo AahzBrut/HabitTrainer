@@ -40,7 +40,7 @@
         android:layout_gravity="center_horizontal"
         android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="128dp"
         android:contentDescription="@string/image_preview_description"
         />
 
