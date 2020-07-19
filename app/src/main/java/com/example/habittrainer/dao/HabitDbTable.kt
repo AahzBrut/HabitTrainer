@@ -45,8 +45,6 @@ class HabitDbTable(private val context: Context) {
 
     fun store(habit: Habit): Long {
 
-        val db = dbHelper.writableDatabase
-
         val values = ContentValues()
         with(values) {
             put(TITLE_COLUMN.getName(), habit.title)
@@ -54,15 +52,15 @@ class HabitDbTable(private val context: Context) {
             put(IMAGE_COLUMN.getName(), toByteArray(habit.image))
         }
 
-        val id = db.transaction {
-            insert(TABLE_NAME, null, values)
+        val db = dbHelper.writableDatabase
+        db.use {
+            val id = db.transaction {
+                insert(TABLE_NAME, null, values)
+            }
+            Log.d(TAG, "New habit was stored to db: $habit")
+
+            return id
         }
-
-        db.close()
-
-        Log.d(TAG, "New habit was stored to db: $habit")
-
-        return id
     }
 
     fun init() {
@@ -75,26 +73,26 @@ class HabitDbTable(private val context: Context) {
     private fun isEmpty(): Boolean {
 
         val db = dbHelper.readableDatabase
+        db.use {
+            val cursor = db.rawQuery(HabitEntry.getIsEmptyQuery(), null)
+            val result = cursor.count == 0
+            cursor.close()
 
-        val cursor = db.rawQuery(HabitEntry.getIsEmptyQuery(), null)
-        val result = cursor.count == 0
-
-        cursor.close()
-        db.close()
-
-        return result
+            return result
+        }
     }
 
     private fun getHabitsFrom(cursor: Cursor): MutableList<Habit> {
 
         val habits = mutableListOf<Habit>()
-        while (cursor.moveToNext()) {
-            val title = cursor.getString(TITLE_COLUMN)
-            val description = cursor.getString(DESCR_COLUMN)
-            val bitmap = cursor.getBitmap(IMAGE_COLUMN)
-            habits.add(Habit(title, description, bitmap))
+        cursor.use {
+            while (cursor.moveToNext()) {
+                val title = cursor.getString(TITLE_COLUMN)
+                val description = cursor.getString(DESCR_COLUMN)
+                val bitmap = cursor.getBitmap(IMAGE_COLUMN)
+                habits.add(Habit(title, description, bitmap))
+            }
         }
-        cursor.close()
         return habits
     }
 
@@ -109,8 +107,10 @@ class HabitDbTable(private val context: Context) {
     private fun toByteArray(image: Bitmap): ByteArray {
 
         val stream = ByteArrayOutputStream()
-        image.compress(Bitmap.CompressFormat.PNG, 0, stream)
-        return stream.toByteArray()
+        stream.use {
+            image.compress(Bitmap.CompressFormat.PNG, 0, stream)
+            return stream.toByteArray()
+        }
     }
 
     private inline fun <T> SQLiteDatabase.transaction(function: SQLiteDatabase.() -> T): T {
