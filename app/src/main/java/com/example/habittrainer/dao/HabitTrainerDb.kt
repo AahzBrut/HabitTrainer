@@ -5,7 +5,8 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 
-class HabitTrainerDb (context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class HabitTrainerDb(context: Context) :
+    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     private val TAG = HabitTrainerDb::class.java.simpleName
 
@@ -20,5 +21,9 @@ class HabitTrainerDb (context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         Log.d(TAG, "Query: ${HabitEntry.getDropQuery()}")
         db.execSQL(HabitEntry.getDropQuery())
         onCreate(db)
+    }
+
+    override fun onDowngrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        onUpgrade(db, oldVersion, newVersion)
     }
 }

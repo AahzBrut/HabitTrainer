@@ -1,10 +1,10 @@
 package com.example.habittrainer
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.habittrainer.dao.HabitDbTable
 import kotlinx.android.synthetic.main.activity_main.*
@@ -15,9 +15,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        val habitDbTable = HabitDbTable(this)
+        habitDbTable.init()
+
         rv.setHasFixedSize(true)
         rv.layoutManager = LinearLayoutManager(this)
-        rv.adapter = HabitsAdapter(HabitDbTable(this).readAll())
+        rv.adapter = HabitsAdapter(habitDbTable.readAll())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

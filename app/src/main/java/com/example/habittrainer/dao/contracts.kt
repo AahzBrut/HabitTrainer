@@ -33,6 +33,9 @@ object HabitEntry : BaseColumns {
 
     fun getSortColumnQuery(column: DbColumn, sortType: String) : String =
         "${column.getName()} $sortType"
+
+    fun getIsEmptyQuery(): String =
+        "SELECT 1 FROM $TABLE_NAME LIMIT 1;"
 }
 
 class DbColumn(
