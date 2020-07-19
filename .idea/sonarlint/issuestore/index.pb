@@ -31,3 +31,5 @@ p
 @app/src/main/java/com/example/habittrainer/dao/HabitTrainerDb.kt,8\6\86f852de71cf4d32fcae7b51024db5de62d2588e
 k
 ;app/src/main/java/com/example/habittrainer/dao/contracts.kt,a\2\a26158b8b62f39e0f815d19041b4dd7b4ca2b302
+O
+.idea/dictionaries/AahzBrut.xml,8\4\84ecadcef1f8dad656e6e556adc5b410ed4e2e13

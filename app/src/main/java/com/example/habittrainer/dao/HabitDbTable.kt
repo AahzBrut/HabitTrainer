@@ -22,13 +22,22 @@ class HabitDbTable(context: Context) {
 
         val cursor = db.query(
             HabitEntry.TABLE_NAME,
-            HabitEntry.getAllColumns(),
+            HabitEntry.getAllColumnNames(),
             null,
             null,
             null,
             null,
             HabitEntry.getSortColumnQuery(HabitEntry.ID_COLUMN, "ASC")
         )
+
+        val habits = getHabitsFrom(cursor)
+
+        db.close()
+
+        return habits
+     }
+
+    private fun getHabitsFrom(cursor: Cursor): MutableList<Habit> {
 
         val habits = mutableListOf<Habit>()
         while (cursor.moveToNext()) {
@@ -38,10 +47,8 @@ class HabitDbTable(context: Context) {
             habits.add(Habit(title, description, bitmap))
         }
         cursor.close()
-        db.close()
-
         return habits
-     }
+    }
 
     private fun Cursor.getString(column: DbColumn) : String =
         this.getString(this.getColumnIndex(column.getName()))

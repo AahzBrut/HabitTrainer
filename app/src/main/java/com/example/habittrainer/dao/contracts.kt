@@ -6,7 +6,7 @@ const val DATABASE_NAME = "habittrainer.db"
 const val DATABASE_VERSION = 10
 
 object HabitEntry : BaseColumns {
-    val TABLE_NAME = "habit"
+    const val TABLE_NAME = "habit"
     val ID_COLUMN = DbColumn("id", DbTypes.INTEGER, pk = true)
     val TITLE_COLUMN = DbColumn("title", DbTypes.VARCHAR, 255)
     val DESCR_COLUMN = DbColumn("description", DbTypes.VARCHAR, 255)
@@ -23,7 +23,7 @@ object HabitEntry : BaseColumns {
     fun getDropQuery(): String =
         "DROP TABLE IF EXISTS $TABLE_NAME;"
 
-    fun getAllColumns() : Array<String> {
+    fun getAllColumnNames() : Array<String> {
 
         return HabitEntry::class.java.declaredFields
             .filter { field -> field::class == DbColumn::class }
