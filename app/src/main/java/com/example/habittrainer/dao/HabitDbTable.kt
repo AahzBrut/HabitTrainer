@@ -8,12 +8,12 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
 import com.example.habittrainer.Habit
-import com.example.habittrainer.R
 import com.example.habittrainer.dao.HabitEntry.DESCR_COLUMN
 import com.example.habittrainer.dao.HabitEntry.ID_COLUMN
 import com.example.habittrainer.dao.HabitEntry.IMAGE_COLUMN
 import com.example.habittrainer.dao.HabitEntry.TABLE_NAME
 import com.example.habittrainer.dao.HabitEntry.TITLE_COLUMN
+import com.example.habittrainer.getInitialHabits
 import java.io.ByteArrayOutputStream
 
 class HabitDbTable(private val context: Context) {
@@ -68,18 +68,7 @@ class HabitDbTable(private val context: Context) {
     fun init() {
 
         if (isEmpty()) {
-            listOf(
-                Habit(
-                    "Go for a walk",
-                    "A nice walk in the sun gets you ready for the day ahead",
-                    BitmapFactory.decodeResource(context.resources, R.drawable.walk)
-                ),
-                Habit(
-                    "Drink a glass of water",
-                    "A refreshing glass of water get you hydrated",
-                    BitmapFactory.decodeResource(context.resources, R.drawable.water)
-                )
-            ).forEach { store(it) }
+            getInitialHabits(context).forEach { store(it) }
         }
     }
 

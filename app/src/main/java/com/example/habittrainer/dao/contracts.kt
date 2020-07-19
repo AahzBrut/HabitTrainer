@@ -3,7 +3,7 @@ package com.example.habittrainer.dao
 import android.provider.BaseColumns
 
 const val DATABASE_NAME = "habittrainer.db"
-const val DATABASE_VERSION = 10
+const val DATABASE_VERSION = 11
 
 object HabitEntry : BaseColumns {
     const val TABLE_NAME = "habit"
